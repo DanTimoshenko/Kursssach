@@ -1,0 +1,19 @@
+{
+	"BUILD_DIR" : "D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/Game_autogen",
+	"CMAKE_BINARY_DIR" : "D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/KhPI/Lessons/Course work/Game/Game",
+	"CMAKE_SOURCE_DIR" : "D:/KhPI/Lessons/Course work/Game/Game",
+	"INCLUDE_DIR" : "D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/Game_autogen/include",
+	"INPUTS" : [],
+	"LOCK_FILE" : "D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/CMakeFiles/Game_autogen.dir/AutoRcc_images_FQJMMI5U5L_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "images" ],
+	"OUTPUT_CHECKSUM" : "FQJMMI5U5L",
+	"OUTPUT_NAME" : "qrc_images.cpp",
+	"RCC_EXECUTABLE" : "D:/Qt/6.3.2/mingw_64/./bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/CMakeFiles/Game_autogen.dir/AutoRcc_images_FQJMMI5U5L_Used.txt",
+	"SOURCE" : "D:/KhPI/Lessons/Course work/Game/images.qrc",
+	"VERBOSITY" : 0
+}

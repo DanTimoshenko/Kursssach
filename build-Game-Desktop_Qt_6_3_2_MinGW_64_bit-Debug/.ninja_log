@@ -1,0 +1,31 @@
+# ninja log v5
+2072	9632	6889177065747693	CMakeFiles/Game.dir/main.cpp.obj	775366f2af3af375
+1930	12445	6889166298448745	CMakeFiles/Game.dir/snake.cpp.obj	1d3b27fc8e050e39
+9	583	6889205774834153	D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/Game_autogen/timestamp	120ee9d0bdedf26e
+2	586	6889232933683268	build.ninja	f406488f587c72e8
+9	583	6889205774834153	Game_autogen/timestamp	120ee9d0bdedf26e
+4393	4829	6889205817929898	Game.exe	21b87a711f600488
+1932	10631	6889166280152756	CMakeFiles/Game.dir/breakout.cpp.obj	70ebdd1005c59423
+2876	6687	6888495688189644	CMakeFiles/Game.dir/game.cpp.obj	bfd7039c15eaae9a
+9	583	6889205774834153	Game_autogen/mocs_compilation.cpp	120ee9d0bdedf26e
+9	583	6889205774834153	D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/Game_autogen/mocs_compilation.cpp	120ee9d0bdedf26e
+2872	7694	6888495698852040	CMakeFiles/Game.dir/authorization.cpp.obj	4f516e1885b42ba3
+448	4290	6889204819801442	CMakeFiles/Game.dir/paddle.cpp.obj	fbf0ccd21b589efc
+588	4393	6889205813615154	CMakeFiles/Game.dir/ball.cpp.obj	77bca51e51e80109
+754	5222	6889201737941449	CMakeFiles/Game.dir/brick.cpp.obj	e8e1cae44016f8be
+287	355	6889192562848115	CMakeFiles/Game.dir/Game_autogen/EWIEGA46WW/qrc_images.cpp.obj	aee10ee23829fbbf
+424	4399	6889185333034365	CMakeFiles/Game.dir/menu.cpp.obj	5f0d6cbc1d144574
+224	280	6889191447706921	D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/Game_autogen/FQJMMI5U5L/qrc_images.cpp	bcb77cbd1db23099
+2069	9625	6889177065637661	CMakeFiles/Game.dir/Game_autogen/mocs_compilation.cpp.obj	10ecf81ebb843418
+224	280	6889191447706921	Game_autogen/FQJMMI5U5L/qrc_images.cpp	bcb77cbd1db23099
+280	348	6889191448467086	CMakeFiles/Game.dir/Game_autogen/FQJMMI5U5L/qrc_images.cpp.obj	76716faa91108ff6
+228	287	6889192562097970	Game_autogen/EWIEGA46WW/qrc_images.cpp	ab145683852fd91c
+228	287	6889192562097970	D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/Game_autogen/EWIEGA46WW/qrc_images.cpp	ab145683852fd91c
+11	359	6889233017136530	Game_autogen/timestamp	120ee9d0bdedf26e
+11	359	6889233017136530	Game_autogen/mocs_compilation.cpp	120ee9d0bdedf26e
+11	359	6889233017136530	D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/Game_autogen/timestamp	120ee9d0bdedf26e
+11	359	6889233017136530	D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/Game_autogen/mocs_compilation.cpp	120ee9d0bdedf26e
+365	437	6889233017866684	Game_autogen/EWIEGA46WW/qrc_images.cpp	ab145683852fd91c
+365	437	6889233017866684	D:/KhPI/Lessons/Course work/Game/build-Game-Desktop_Qt_6_3_2_MinGW_64_bit-Debug/Game_autogen/EWIEGA46WW/qrc_images.cpp	ab145683852fd91c
+437	534	6889233018902105	CMakeFiles/Game.dir/Game_autogen/EWIEGA46WW/qrc_images.cpp.obj	aee10ee23829fbbf
+535	1265	6889233026107391	Game.exe	21b87a711f600488

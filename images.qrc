@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ball.png</file>
+        <file>breakout.cpp</file>
+        <file>breakout.h</file>
+        <file>brick.cpp</file>
+        <file>brick.h</file>
+        <file>brickie.png</file>
+        <file>ball.png</file>
+        <file>ball.png</file>
+        <file>paddle.png</file>
+    </qresource>
+</RCC>
