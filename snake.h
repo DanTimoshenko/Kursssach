@@ -20,21 +20,20 @@ protected:
    void keyPressEvent(QKeyEvent *event) override;
    void paintEvent(QPaintEvent *event) override;
    void resizeEvent(QResizeEvent *event) override;
-  //void gameOver(QPainter *painter, QString message) override;
 private:
-   static const int DOT_WIDTH = 20;//размер яблока и точек-частей тела змеи
+   static const int DOT_WIDTH = 20;
    static const int DOT_HEIGHT = 20;
-   int FEILD_WIDTH = 20;//размер игрового поля
+   int FEILD_WIDTH = 20;
    int FEILD_HEIGHT = 20;
-   int score = 0;//счет съеденных яблок
-   int FRAME_WIDTH;//размеры рамки
+   int score = 0;
+   int FRAME_WIDTH;
    int FRAME_HEIGHT;
-   static const int DELAY = 150;//задержка таймера - скорость игры
+   static const int DELAY = 150;
    void doDrawing();
    void localApple();
    void move();
    void check_field();
-   void gameOver(QPainter *painter, QString message);
+   void gameOver();
    void checkApple();
    void setTitle(const QString &text);
    int timerId;
