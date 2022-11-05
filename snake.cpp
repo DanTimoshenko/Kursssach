@@ -45,7 +45,7 @@ void Snake::resizeEvent(QResizeEvent *event)
     resize(width(), width()); //Разрешает изменять размеры окна только в отношении 1:1
     FEILD_WIDTH = width()/20; //Устанавливает размеры поля
     FEILD_HEIGHT = height()/20;
-
+//git test
     FRAME_WIDTH = width()-40; //Размеры рамки
     FRAME_HEIGHT = height()-40; //Размеры рамки
 }
