@@ -47,7 +47,7 @@ void Snake::resizeEvent(QResizeEvent *event)
     FEILD_HEIGHT = height()/20;
 
     FRAME_WIDTH = width()-40; //Размеры рамки
-    FRAME_HEIGHT = height()-40;
+    FRAME_HEIGHT = height()-40; //Размеры рамки
 }
 
 void Snake::doDrawing(){
