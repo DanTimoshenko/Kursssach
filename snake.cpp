@@ -6,13 +6,13 @@
 Snake::Snake(QWidget *parent)
     : QWidget{parent}
 {
-    this->resize(DOT_WIDTH * FEILD_WIDTH,DOT_HEIGHT * FEILD_HEIGHT ); //задаємо розміри поля
+    this->resize(DOT_WIDTH * FEILD_WIDTH,DOT_HEIGHT * FEILD_HEIGHT ); // задаємо розміри поля
     score_counter = new QLabel("score: 0", this);
     score_counter->move(20, 0);
     FRAME_WIDTH = width()-40;
     FRAME_HEIGHT = height()-40;
-    this->setWindowTitle("snake");
-    initGame();
+    this->setWindowTitle("snake"); // змінюємо заголовок вікна
+    initGame(); // функція, що ініціалізує гру
 }
 
 void Snake::timerEvent(QTimerEvent *e)
