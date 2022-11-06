@@ -163,7 +163,7 @@ void Snake::checkApple()
 }
 
 void Snake::initGame(){
-    m_inGame=true;
+    m_inGame=true; //якщо в ігрі, то true
     m_dots.resize(3);
     for(int i=0; i<m_dots.size();++i){
         m_dots[i].rx()=10;//m_dots.size()-i;
