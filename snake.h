@@ -28,7 +28,7 @@ private:
    int score = 0;
    int FRAME_WIDTH;
    int FRAME_HEIGHT;
-   static const int DELAY = 150;
+   static const int DELAY = 150; //усі дії виконувати за таймером
    void doDrawing();
    void localApple();
    void move();
