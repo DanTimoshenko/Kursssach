@@ -20,8 +20,6 @@ set(PROJECT_SOURCES
         game.h
         menu.h
         menu.cpp
-        authorization.h
-        authorization.cpp
         snake.h snake.cpp
         breakout.h
         breakout.cpp

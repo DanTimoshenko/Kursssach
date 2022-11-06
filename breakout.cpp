@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Breakout::Breakout(QWidget *parent)
+Breakout::Breakout(QWidget *parent)//В конструкторе класса Breakout мы
     : QWidget(parent)
 {
     x = 0;
@@ -20,8 +20,7 @@ Breakout::Breakout(QWidget *parent)
     paddle = new Paddle();
 
     int k = 0;
-
-    for (int i=0; i<5; i++)
+    for (int i=0; i<5; i++)//создаем экземпляр тридцати Кирпичей
     {
         for (int j=0; j<6; j++)
         {
@@ -31,44 +30,47 @@ Breakout::Breakout(QWidget *parent)
     }
 }
 
-void Breakout::paintEvent(QPaintEvent *e)
+void Breakout::paintEvent(QPaintEvent *e)//В зависимости от переменных gameOver и gameWon мы
 {
     Q_UNUSED(e);
     QPainter painter(this);
 
+    //либо заканчиваем игру, выдавая соответствующие сообщения:
     if (gameOver)
     {
-        finishGame(&painter, "Game lost");
+        finishGame(&painter, str);  // Выводим изменённое значение переменной str
     }
-    else if(gameWon)
+    else if(gameWon)//
     {
         finishGame(&painter, "Victory");
     }
-    else
+    else//либо продолжаем отрисовывать в окне игровые объекты
     {
         drawObjects(&painter);
     }
 }
 
-void Breakout::finishGame(QPainter *painter, QString message)
-{
+void Breakout::finishGame(QPainter *painter, QString message)//Метод finishGame() отображает завершающее сообщение в центре окна.
+{                                                            // Это либо "Game over" ("Игра проиграна"), либо "Victory" ("Победа").
     QFont font("Courier", 15, QFont::DemiBold);
-    QFontMetrics fm(font);
+    QFontMetrics fm(font);//Метод QFontMetrics::width() используется для вычисления ширины строки соответствующего сообщениям
     int textWidth = 0;
 
     painter->setFont(font);
-    int h = height();
-    int w = width();
+    //int h = height();
+    //int w = width();
 
-    painter->translate(QPoint(w/2, h/2));
+    painter->translate(QPoint(50, 220));
     painter->drawText(-textWidth/2, 0, message);
+    painter->drawText(-textWidth/2, font.pointSize()+10, "Нажмите пробел, чтобы начать заново"); //Надпись инструкции
+    painter->drawText(-textWidth/2, font.pointSize()*2+20, "Нажмите Esc, чтобы выйти в меню");
 }
 
-void Breakout::drawObjects(QPainter *painter)
+void Breakout::drawObjects(QPainter *painter)//Метод drawObjects() отрисовывает в окне все объекты игры: Мяч, Ракетку и Кирпичи
 {
     painter->drawRect(20, 20, 300, 400); //Рисует прямоугольник-рамку
-    painter->drawImage(ball->getRect(), ball->getImage());
-    painter->drawImage(paddle->getRect(), paddle->getImage());
+    painter->drawImage(ball->getRect(), ball->getImage());//А так как данные объекты представлены изображениями, то
+    painter->drawImage(paddle->getRect(), paddle->getImage());//при помощи метода drawImage() мы отображаем и их изображения
 
     for (int i=0; i<N_OF_BRICKS; i++)
     {
@@ -79,30 +81,30 @@ void Breakout::drawObjects(QPainter *painter)
     }
 }
 
-void Breakout::timerEvent(QTimerEvent *e)
+void Breakout::timerEvent(QTimerEvent *e)//В теле метода timerEvent() мы
 {
     Q_UNUSED(e);
 
-    moveObjects();
-    checkCollision();
-    repaint();
+    moveObjects();//сначала перемещаем объекты,
+    checkCollision();//а затем проверяем, не столкнулся ли Мяч с Ракеткой или Кирпичом.
+    repaint();//В конце генерируем событие отрисовки
 }
 
-void Breakout::moveObjects()
+void Breakout::moveObjects()//Метод moveObjects() отвечает за перемещения объектов Мяч и Ракетка.
 {
-    ball->autoMove();
+    ball->autoMove();//В нем вызываются их собственные методы перемещения
     paddle->move();
 }
 
-void Breakout::keyReleaseEvent(QKeyEvent *e)
+void Breakout::keyReleaseEvent(QKeyEvent *e)//
 {
     int dx = 0;
 
     switch (e->key())
     {
-        case Qt::Key_Left:
-            dx = 0;
-            paddle->setDx(dx);
+        case Qt::Key_Left://Когда игрок отпускает кнопку ← или →
+            dx = 0;//то мы присваиваем переменной dx Ракетки значение 0
+            paddle->setDx(dx);//В результате Ракетка перестает двигаться
             break;
 
         case Qt::Key_Right:
@@ -112,76 +114,79 @@ void Breakout::keyReleaseEvent(QKeyEvent *e)
     }
 }
 
-void Breakout::keyPressEvent(QKeyEvent *e)
+void Breakout::keyPressEvent(QKeyEvent *e)//В методе keyPressEvent() мы отслеживаем события нажатия клавиш, относящиеся к нашей игре
 {
 
     int dx = 0;
 
+    if(e->key()==Qt::Key_Space && gameOver) //Когда нажимаем пробел и мы не в игре(gameOver), то игра начинается
+        startGame();
+    if(e->key()==Qt::Key_Escape && gameOver) //Когда нажимаем Esc и мы не в игре(gameOver), то выходим в меню
+    {
+        emit closed(); // Срабатывание сигнала
+        this->close(); //Закрываем виджет
+    }
+
     switch (e->key())
     {
-    case Qt::Key_Left:
-        dx = -1;
-        paddle->setDx(dx);
+    case Qt::Key_Left://Кнопка ← перемещает объект Ракетки.
+        dx = -1;//Она влияет на значение переменной dx,
+        paddle->setDx(dx);//которое затем будет добавлено к координате х самой Ракетки
         break;
 
-    case Qt::Key_Right:
+    case Qt::Key_Right://Кнопка → перемещает объект Ракетки.
         dx = 1;
         paddle->setDx(dx);
         break;
 
-    case Qt::Key_P:
+    case Qt::Key_P://Кнопка P ставит игру на паузу
         pauseGame();
         break;
 
-    case Qt::Key_Space:
+    case Qt::Key_Space://кнопка "Пробел" запускает игру
         startGame();
         break;
-
-   // case Qt::Key_Escape:
-
-     //   qApp->exit();
-       // break;
 
     default:
         QWidget::keyPressEvent(e);
     }
 }
 
-void Breakout::startGame()
+void Breakout::startGame()//Метод startGame() сбрасывает состояния объектов ball и paddle;
 {
     if (!gameStarted)
     {
-        ball->resetState();
+        ball->resetState();//ball и paddle перемещаются в исходное положение.
         paddle->resetState();
-        for (int i=0; i<N_OF_BRICKS; i++)
+        for (int i=0; i<N_OF_BRICKS; i++)//В цикле for мы
         {
-            bricks[i]->setDestroyed(false);
+            bricks[i]->setDestroyed(false);//устанавливаем значение флага destroyed равным false для каждого Кирпича, таким образом отображая их в окне.
         }
-        gameOver = false;
+        gameOver = false;//Переменные gameOver, gameWon и gameStarted получают свои начальные логические значения
         gameWon = false;
         gameStarted = true;
-        timerId = startTimer(DELAY);
+        timerId = startTimer(DELAY);//Наконец, с помощью метода startTimer() мы запускаем таймер
      }
 }
 
-void Breakout::pauseGame()
-{
+void Breakout::pauseGame()//Функция pauseGame() используется для приостановки и запуска уже остановленной игры.
+{                         //Данное состояние игры управляется с помощью переменной paused
     if (paused)
-    {
+    { //Также мы храним и идентификатор таймера
         timerId = startTimer(DELAY);
         paused = false;
     }
-    else
+    else// Чтобы приостановить игру, мы «убиваем» таймер с помощью метода killTimer(). Чтобы перезапустить его, мы вызываем метод startTimer()
     {
         paused = true;
         killTimer(timerId);
     }
 }
 
-void Breakout::stopGame()
+void Breakout::stopGame()//В методе stopGame() мы
 {
-    killTimer(timerId);
-    gameOver = true;
+    killTimer(timerId);//«убиваем» таймер и
+    gameOver = true;//устанавливаем соответствующие флаги
     gameStarted = false;
 }
 
@@ -192,20 +197,20 @@ void Breakout::victory()
     gameStarted = false;
 }
 
-void Breakout::checkCollision()
+void Breakout::checkCollision()//В методе checkCollision() мы делаем проверку столкновения Мяча с игровыми объектами.
 {
-    if (ball->getRect().bottom() > BOTTOM_EDGE)
+    if (ball->getRect().bottom() > BOTTOM_EDGE)//Игра заканчивается, если Мяч попадает в нижний край окна
     {
         stopGame();
     }
 
     for (int i=0, j=0; i<N_OF_BRICKS; i++)
     {
-        if (bricks[i]->isDestroyed())
+        if (bricks[i]->isDestroyed())//Проверяем количество разрушенных Кирпичей.
         {
             j++;
         }
-        if (j == N_OF_BRICKS)
+        if (j == N_OF_BRICKS)//Если все Кирпичи уничтожены, то мы выиграли
         {
             victory();
         }
@@ -221,9 +226,9 @@ void Breakout::checkCollision()
          int third = paddleLPos + 24;
          int fourth = paddleLPos + 32;
 
-         if (ballLPos < first)
+         if (ballLPos < first)//Если Мяч попадает в верхнюю часть Ракетки,
          {
-             ball->setXDir(-1);
+             ball->setXDir(-1);//то меняем направление полета Мяча (в зависимости от движения Ракетки в момент столкновения), например, на влево-вверх
              ball->setYDir(-1);
          }
          if (ballLPos >= first && ballLPos < second)
@@ -277,15 +282,21 @@ void Breakout::checkCollision()
                  {
                      ball->setYDir(1);
                  }
-                 else if(bricks[i]->getRect().contains(pointBottom))
+                 else if(bricks[i]->getRect().contains(pointBottom))//Если Мяч ударяется о нижнюю часть Кирпича,
                  {
-                     ball->setYDir(-1);
+                     ball->setYDir(-1);//то мы меняем направление y Мяча — он идет вниз
                  }
 
                  bricks[i]->setDestroyed(true);
              }
          }
      }
+}
+
+void Breakout::setName(QString s)
+{
+    str = s; // Сохраняем значение переменной из menu
+    str = "Game over, " + str; // Перестраиваем его под сообщение проигрыша
 }
 
 Breakout::~Breakout()
@@ -297,3 +308,4 @@ Breakout::~Breakout()
         delete bricks[i];
     }
 }
+

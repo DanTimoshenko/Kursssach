@@ -10,9 +10,6 @@ using namespace std;
 Ball::Ball(QWidget *parent)
     : QWidget{parent}
 {
-    xdir = 0;
-    ydir = -1;
-
     image.load(":ball.png");
 
     rect = image.rect();
@@ -41,6 +38,8 @@ void Ball::autoMove()
 void Ball::resetState()
 {
     rect.moveTo(INITIAL_X, INITIAL_Y);
+    xdir = 0;
+    ydir = -1;
 }
 
 void Ball::setXDir(int x)

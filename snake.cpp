@@ -33,43 +33,48 @@ void Snake::keyPressEvent(QKeyEvent *e)
     if(key==Qt::Key_Right && m_dir != Directions::left){m_dir = Directions::right;}
     if(key==Qt::Key_Up && m_dir != Directions::down){m_dir = Directions::up;}
     if(key==Qt::Key_Down && m_dir != Directions::up){m_dir = Directions::down;}
+
+    if(key==Qt::Key_Space && !m_inGame) //Когда нажимаем пробел и мы не в игре(m_inGame=false), то игра начинается
+        initGame();
+    if(key==Qt::Key_Escape && !m_inGame) //Когда нажимаем Esc и мы не в игре(m_inGame=false), то выходим в меню
+    {
+        emit closed(); // Срабатывание сигнала
+        this->close(); //Закрываем виджет
+    }
 }
 
-void Snake::paintEvent(QPaintEvent *e){
+void Snake::paintEvent(QPaintEvent *e)
+{
     Q_UNUSED(e);
     doDrawing();
 }
 
-void Snake::resizeEvent(QResizeEvent *event)
-{
-    resize(width(), width()); //Разрешает изменять размеры окна только в отношении 1:1
-    FEILD_WIDTH = width()/20; //Устанавливает размеры поля
-    FEILD_HEIGHT = height()/20;
-//git test
-    FRAME_WIDTH = width()-40; //Размеры рамки
-    FRAME_HEIGHT = height()-40; //Размеры рамки
-}
-
 void Snake::doDrawing(){
     QPainter qp(this);
-    if (m_inGame){
-        qp.drawRect(20, 20, FRAME_WIDTH, FRAME_HEIGHT);//Рисует прямоугольник-рамку
+    if (m_inGame)
+    {
+        qp.drawRect(20, 20, FRAME_WIDTH, FRAME_HEIGHT);
         qp.setBrush(Qt::yellow);
         qp.drawEllipse(m_apple.x() * DOT_WIDTH, m_apple.y() * DOT_HEIGHT, DOT_WIDTH, DOT_HEIGHT);
-        for (int i=0; i<m_dots.size();++i){
-            if(i == 0) {
+        for (int i=0; i<m_dots.size();++i)
+        {
+            if(i == 0)
+            {
                 qp.setBrush(Qt::red);
                 qp.drawEllipse(m_dots[i].x() * DOT_WIDTH, m_dots[i].y() * DOT_HEIGHT, DOT_WIDTH, DOT_HEIGHT);
             }
-            else {
+            else
+            {
                 qp.setBrush(Qt::green);
                 qp.drawEllipse(m_dots[i].x() * DOT_WIDTH, m_dots[i].y() * DOT_HEIGHT, DOT_WIDTH, DOT_HEIGHT);
             }
         }
     }
-    else {
+    else
+    {
         qp.end();
-        gameOver();
+        QPainter painter(this);
+        gameOver(&painter, str);
     }
 }
 
@@ -77,7 +82,7 @@ void Snake::localApple()
 {
     QTime time= QTime::currentTime();
     srand((uint)time.msec());
-    //Яблоки появляются рандомно внутри рамки
+
     m_apple.rx()= rand() % (DOT_WIDTH-2)+1;
     m_apple.ry()= rand() % (DOT_HEIGHT-2)+1;
 }
@@ -99,42 +104,58 @@ void Snake::move()
 void Snake::check_field()
 {
     if(m_dots.size()>4)
-    {
+   {
 
         for (int i=1; i<m_dots.size(); ++i)
-        { if(m_dots[0] == m_dots[i])
+        {
+            if(m_dots[0] == m_dots[i])
             {
                m_inGame= false;
             }
         }
     }
-    //Если голова змеи касается рамки, то game over
-    if(m_dots[0].x() >= FEILD_HEIGHT-1) {
+    if(m_dots[0].x() >= FEILD_WIDTH-1)
+    {
         m_inGame=false;
-   }
-   if(m_dots[0].x() < 1) {
-       m_inGame=false;
-   }
-   if(m_dots[0].y() >= FEILD_HEIGHT-1) {
-       m_inGame=false;
-   }
-   if(m_dots[0].y() < 1) {
-       m_inGame=false;
-   }
-   if(!m_inGame)
-   {
-       killTimer(timerId);
-   }
+    }
+    if(m_dots[0].x() < 1)
+    {
+        m_inGame=false;
+    }
+    if(m_dots[0].y() >= FEILD_HEIGHT-1)
+    {
+        m_inGame=false;
+    }
+    if(m_dots[0].y() < 1)
+    {
+        m_inGame=false;
+    }
+    if(!m_inGame)
+    {
+        killTimer(timerId);
+    }
 }
 
-void Snake::gameOver()
+void Snake::gameOver(QPainter *painter, QString message)
 {
-    //QMessageBox msgb;
-    //msgb.setText("Game over");
-    //msgb.exec();
-    score=0;
+    QFont font("Courier", 15, QFont::DemiBold);
+    QFontMetrics fm(font);
+    int textWidth = 0;
+
+    painter->setFont(font);
+    //int h = height();
+    //int w = width();
+
+    painter->translate(QPoint((DOT_WIDTH * FEILD_WIDTH)/2-120, (DOT_HEIGHT * FEILD_HEIGHT)/2));
+    painter->drawText(-textWidth/2, 0, message);
+    painter->drawText(-textWidth/2, font.pointSize()+10, "Нажмите пробел, чтобы начать заново"); //Надпись инструкции
+    painter->drawText(-textWidth/2, font.pointSize()*2+20, "Нажмите Esc, чтобы выйти в меню");
+
     score_counter->setText(tr("score: %1").arg(score));
-    initGame();
+
+    /*score=0;
+    score_counter->setText(tr("score: %1").arg(score));
+    initGame();*/
 }
 
 void Snake::checkApple()
@@ -149,6 +170,12 @@ void Snake::checkApple()
         score++;
         score_counter->setText(tr("score: %1").arg(score));
     }
+}
+
+void Snake::setName(QString s)
+{
+    str = s; // Сохраняем значение переменной из menu
+    str = "Game over, " + str; // Перестраиваем его под сообщение проигрыша
 }
 
 void Snake::initGame(){
