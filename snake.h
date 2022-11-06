@@ -46,9 +46,9 @@ private:
        down
    };
 Directions m_dir;
-   bool m_inGame;
+   bool m_inGame; //функція, щоб зберігати стан (у грі або ні). локальні змінні починаємо з m, щоб зручно було орієнтуватися у великому коді
    QVector<QPoint> m_dots;
-   void initGame();
+   void initGame(); //ініціалізує гру
    QLabel *score_counter;
 };
 
