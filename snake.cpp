@@ -164,12 +164,12 @@ void Snake::checkApple()
 
 void Snake::initGame(){
     m_inGame=true; //якщо в ігрі, то true
-    m_dots.resize(3);
-    for(int i=0; i<m_dots.size();++i){
-        m_dots[i].rx()=10;//m_dots.size()-i;
-        m_dots[i].ry()=10;
+    m_dots.resize(3); //спочатку у змійці буде усього три частини (клітинки)
+    for(int i=0; i<m_dots.size();++i){ //заповнюємо початкове положення змійки
+        m_dots[i].rx()=10;//m_dots.size()-i; //rx повертає вказівних на х
+        m_dots[i].ry()=10; //rу повертає вказівних на х. таким чином вказуємо початкові координати
     }
-   localApple();
-   timerId = startTimer(DELAY);
+   localApple(); //положення яблука в рандомному місті поля
+   timerId = startTimer(DELAY); //усі дії виконувати за таймером
 
 }
