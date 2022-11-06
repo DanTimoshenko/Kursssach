@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QVector>
-#include <QPoint>
+#include <QPoint> //
 #include <QKeyEvent>
 #include <QPaintEvent>
 #include <QPainter>
@@ -47,7 +47,7 @@ private:
    };
 Directions m_dir;
    bool m_inGame; //функція, щоб зберігати стан (у грі або ні). локальні змінні починаємо з m, щоб зручно було орієнтуватися у великому коді
-   QVector<QPoint> m_dots;
+   QVector<QPoint> m_dots; //зберігає інфу з усі точок змійки. Гра двухмірна, тому інфа точок зберігається у двух змінних (за допомогою QPoint, щоб не ускладнювати)
    void initGame(); //ініціалізує гру
    QLabel *score_counter;
 };
