@@ -16,12 +16,12 @@ Ball::Ball(QWidget *parent)
     resetState();
 }
 
-void Ball::autoMove()
+void Ball::autoMove()//Метод autoMove() вызывается в каждом игровом цикле для перемещения Мяча по экрану.
 {
     rect.translate(xdir, ydir);
 
-    if (rect.left() == 20)
-    {
+    if (rect.left() == 20)//Если Мяч достигает границ окна (за исключением нижней), то он меняет свое направление
+    {                     //Если же Мяч попадает в нижнюю границу окна, то назад он не отскакивает, а игра при этом считается завершенной
         xdir = 1;
     }
     if (rect.right() == RIGHT_EDGE)
@@ -38,7 +38,7 @@ void Ball::autoMove()
 void Ball::resetState()
 {
     rect.moveTo(INITIAL_X, INITIAL_Y);
-    xdir = 0;
+    xdir = 0;//В начале игры Мяч движется в направлении вправо-вверх:
     ydir = -1;
 }
 
