@@ -62,8 +62,8 @@ void Breakout::finishGame(QPainter *painter, QString message)//Метод finish
 
     painter->translate(QPoint(50, 220));
     painter->drawText(-textWidth/2, 0, message);
-    painter->drawText(-textWidth/2, font.pointSize()+10, "Нажмите пробел, чтобы начать заново"); //Надпись инструкции
-    painter->drawText(-textWidth/2, font.pointSize()*2+20, "Нажмите Esc, чтобы выйти в меню");
+    painter->drawText(-textWidth/2, font.pointSize()+10, "Space - Try again"); //Надпись инструкции
+    painter->drawText(-textWidth/2, font.pointSize()*2+20, "Esc - Back to menu");
 }
 
 void Breakout::drawObjects(QPainter *painter)//Метод drawObjects() отрисовывает в окне все объекты игры: Мяч, Ракетку и Кирпичи
