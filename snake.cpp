@@ -8,6 +8,7 @@ Snake::Snake(QWidget *parent)
 {
     this->resize(DOT_WIDTH * FEILD_WIDTH,DOT_HEIGHT * FEILD_HEIGHT );// задаємо розміри поля
     score_counter = new QLabel("score: 0", this);//лічильник ігрового рахунку
+    score_counter->setFont(QFont("Courier", 15, QFont::DemiBold)); //Шрифт лічільника
     score_counter->move(20, 0);
     FRAME_WIDTH = width()-40;
     FRAME_HEIGHT = height()-40;
@@ -170,6 +171,7 @@ void Snake::checkApple()//перевіяємо чи з'їла яблуко
         //msgr.exec();
         score++;//кількість ігрових балів збільшується на один
         score_counter->setText(tr("score: %1").arg(score));
+        score_counter->adjustSize();
     }
 }
 
