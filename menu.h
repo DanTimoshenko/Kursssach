@@ -27,7 +27,13 @@ private:
     Snake *game_snake;
     Breakout *game_breakout;
     QLabel *label;
-public slots:
+    QRect *snake_frame; // рамка змейки
+    void paintEvent(QPaintEvent *);
+    void timerEvent(QTimerEvent *);
+    void snake_move(); // метод движения змейки
+    QVector<QPoint> m_dots; //вектор змейки из кода игры
+    int timerId;
+public slots: //таймер
     void snake();
     void breakout();
     void setName();
