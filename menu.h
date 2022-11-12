@@ -6,9 +6,7 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QDebug>
-//#include <QValidator>
 #include <QRegularExpressionValidator>
-//#include <QRegularExpression>
 
 #include <snake.h>
 #include <breakout.h>
@@ -17,7 +15,6 @@ class Menu : public QWidget
 {
     Q_OBJECT
 public:
-    //QRegularExpressionValidator valid;
     explicit Menu(QWidget *parent = nullptr);
     QLineEdit *nickname;
 protected:
