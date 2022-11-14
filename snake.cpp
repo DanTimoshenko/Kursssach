@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QTime>
 #include <QMessageBox>
+#include <QGradient>
 
 Snake::Snake(QWidget *parent)
     : QWidget{parent}
@@ -14,6 +15,10 @@ Snake::Snake(QWidget *parent)
     FRAME_HEIGHT = height()-40;
     this->setWindowTitle("snake");
     initGame();// функція, що ініціалізує гру
+
+    QPalette pal("#6D9844"); //цвет фона
+    this->setAutoFillBackground(true);
+    setPalette(pal); //устанавливаем фон
 }
 
 void Snake::timerEvent(QTimerEvent *e)//спрацьовує кожен раз, після визивання функцій нижче
@@ -53,6 +58,10 @@ void Snake::paintEvent(QPaintEvent *e)
 void Snake::doDrawing()
 {
     QPainter qp(this);//за допомогою цього класу виконуєтсья уся отрисовка
+
+    qp.drawImage(20, 20, QImage("D:/KhPI/Lessons/Course work/Game/snake_background.jpg").scaled(FRAME_WIDTH, FRAME_HEIGHT));//Подгружаем на фон картинку.
+
+    qp.setRenderHint(QPainter::Antialiasing, true);//сглаживание
     if (m_inGame)
     {
         qp.drawRect(20, 20, FRAME_WIDTH, FRAME_HEIGHT);//відрисовує прямокутник
@@ -62,12 +71,34 @@ void Snake::doDrawing()
         {
             if(i == 0)//якщо це голова
             {
-                qp.setBrush(Qt::red);//колір та еліпс дял малювання голови
+                /*QRadialGradient rgrad;//создаем градиент
+                              rgrad.setColorAt(0.6, Qt::blue);//Создает точку остановки в заданной позиции с заданным цветом. Заданная позиция должна быть в диапазоне от 0 до 1.
+                              rgrad.setColorAt(0.1, Qt::green);
+                              rgrad.setColorAt(0.2, Qt::yellow);
+                              //rgrad.setFocalPoint();//стартовая точка отричовки
+                              rgrad.setCenter(DOT_WIDTH/2, DOT_HEIGHT/2);//центральнвя точка (возможно смещение)
+                              rgrad.setRadius(5);//радиус отрисовки от стартовой позиции
+                              qp.setBrush(rgrad);*/
+                qp.setBrush(Qt::white);//колір та еліпс дял малювання голови
                 qp.drawEllipse(m_dots[i].x() * DOT_WIDTH, m_dots[i].y() * DOT_HEIGHT, DOT_WIDTH, DOT_HEIGHT);
             }
             else
             {
-                qp.setBrush(Qt::green);//колір та еліпс для малювання інших частин змійки
+                QLinearGradient lgrad;//линейный градиент
+                lgrad.setStart(40,40);//стартовая точка
+                lgrad.setFinalStop(FRAME_WIDTH, FRAME_HEIGHT);//точка, где отрисовка смены цветов градиента заканчивается
+                lgrad.setColorAt(0.0, Qt::darkRed);
+                lgrad.setColorAt(0.1, Qt::red);
+                lgrad.setColorAt(0.2, Qt::yellow);
+                lgrad.setColorAt(0.3, Qt::green);
+                lgrad.setColorAt(0.4, Qt::cyan);
+                lgrad.setColorAt(0.5, Qt::blue);
+                lgrad.setColorAt(0.6, Qt::darkBlue);
+                lgrad.setColorAt(0.7, Qt::magenta);
+                lgrad.setColorAt(0.8, Qt::darkMagenta);
+                lgrad.setColorAt(0.9, Qt::darkCyan);
+                lgrad.setColorAt(1.0, Qt::black);
+                qp.setBrush(lgrad);//колір та еліпс для малювання інших частин змійки
                 qp.drawEllipse(m_dots[i].x() * DOT_WIDTH, m_dots[i].y() * DOT_HEIGHT, DOT_WIDTH, DOT_HEIGHT);
             }
         }
@@ -141,7 +172,7 @@ void Snake::check_field()//перевіряє чи не вийшла за пол
 void Snake::gameOver(QPainter *painter, QString message)//гра закінчена
 {
     QFont font("Courier", 15, QFont::DemiBold);
-    QFontMetrics fm(font);
+    //QFontMetrics fm(font);
     int textWidth = 0;
 
     painter->setFont(font);
@@ -155,9 +186,9 @@ void Snake::gameOver(QPainter *painter, QString message)//гра закінче�
 
     score_counter->setText(tr("score: %1").arg(score));
 
-    /*score=0;
+    score=0;
     score_counter->setText(tr("score: %1").arg(score));
-    initGame();*/
+    //initGame();
 }
 
 void Snake::checkApple()//перевіяємо чи з'їла яблуко
