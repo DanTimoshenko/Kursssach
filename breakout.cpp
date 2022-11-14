@@ -28,6 +28,10 @@ Breakout::Breakout(QWidget *parent)//В конструкторе класса Br
             k++;
         }
     }
+
+    QPalette pal("#7028e4");//цвет фона
+    this->setAutoFillBackground(true);
+    setPalette(pal);//устанавливаем фон
 }
 
 void Breakout::paintEvent(QPaintEvent *e)//В зависимости от переменных gameOver и gameWon мы
@@ -68,6 +72,8 @@ void Breakout::finishGame(QPainter *painter, QString message)//Метод finish
 
 void Breakout::drawObjects(QPainter *painter)//Метод drawObjects() отрисовывает в окне все объекты игры: Мяч, Ракетку и Кирпичи
 {
+    painter->drawImage(20, 20, QImage("D:/KhPI/Lessons/Course work/Game/breakout_background.jpg").scaled(300, 400));//Подгружаем на фон картинку.
+
     painter->drawRect(20, 20, 300, 400); //Рисует прямоугольник-рамку
     painter->drawImage(ball->getRect(), ball->getImage());//А так как данные объекты представлены изображениями, то
     painter->drawImage(paddle->getRect(), paddle->getImage());//при помощи метода drawImage() мы отображаем и их изображения
@@ -308,4 +314,3 @@ Breakout::~Breakout()
         delete bricks[i];
     }
 }
-
