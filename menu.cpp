@@ -56,6 +56,7 @@ Menu::Menu(QWidget *parent)
         m_dots[i].rx()=snake_frame->x()+20;//m_dots.size()-i; //rx повертає вказівних на х
         m_dots[i].ry()=snake_frame->y();//rу повертає вказівних на х. таким чином вказуємо початкові координати
     }
+    animation_init(); //создаем и перемещаем все объекты для анимации змейки и брэйкаута
     timerId = startTimer(100); //ставим таймер
 }
 
@@ -87,7 +88,7 @@ void Menu::paintEvent(QPaintEvent *)
     //опять кусок кода игры
     QPainter qp(this);//за допомогою цього класу виконуєтсья уся отрисовка
 
-    qp.drawImage(0, 0, QImage("D:/KhPI/Lessons/Course work/Game/menu_backgroung.jpg").scaled(400, 600));//Подгружаем на фон картинку.
+    qp.drawImage(0, 0, QImage(":menu_backgroung.jpg").scaled(400, 600));//Подгружаем на фон картинку.
 
     qp.setRenderHint(QPainter::Antialiasing, true);//сглаживание
     qp.setBrush(Qt::yellow);//задаємо колір прямокутника
@@ -119,12 +120,15 @@ void Menu::paintEvent(QPaintEvent *)
             qp.drawEllipse(m_dots[i].x(), m_dots[i].y(), 14, 14);
         }
     }
+    qp.drawImage(*rect_ball, *ball); // рисуем мячик
+    qp.drawImage(*rect_paddle, *paddle); //рисуем падл
 
 }
 
 void Menu::timerEvent(QTimerEvent *)
 {
-    snake_move(); //двигаем змейку
+    snake_move();
+    breakout_move();//двигаем змейку
     update();
 }
 
@@ -139,5 +143,32 @@ void Menu::snake_move()
     if(m_dots[0].rx()==snake_frame->right() && m_dots[0].ry()<=snake_frame->bottom()){m_dots[0].ry() += 10;} //если х = правой границе рамки и у < нижней границы, то змейка двигается вниз
     if(m_dots[0].rx()>=snake_frame->left() && m_dots[0].ry()==snake_frame->bottom()){m_dots[0].rx() += -10;} //если у = нижней границе рамки и х < левой границы, то змейка двигается влево
     if(m_dots[0].rx()==snake_frame->left() && m_dots[0].ry()>=snake_frame->top()){m_dots[0].ry() += -10;} //если х = левой границе рамки и у < верхней границы, то змейка двигается вверх
-    qDebug()<<m_dots[0].rx()<<m_dots[0].ry()<<snake_frame->bottom();
+}
+
+void Menu::breakout_move()
+{
+    if(rect_ball->top()==button2->y()+button2->height())
+        y_move=5;
+    if(rect_ball->bottom()==rect_paddle->top())
+        y_move=-5;
+    rect_ball->translate(0,y_move);
+}
+
+void Menu::animation_init()
+{
+    m_dots.resize(5); // это скопированный кусок из кода игры
+    for(int i=0; i<m_dots.size();++i)//заповнюємо початкове положення змійки. У нулі знаходиться голова змійки
+    {
+        m_dots[i].rx()=snake_frame->x()+20;//m_dots.size()-i; //rx повертає вказівних на х
+        m_dots[i].ry()=snake_frame->y();//rу повертає вказівних на х. таким чином вказуємо початкові координати
+    }
+
+    ball = new QImage(":ball.png");
+    rect_ball = new QRect(ball->rect());
+    rect_ball->moveTo(button2->x()+button2->width()/2-rect_ball->width()/2, button2->y()+100);
+
+    paddle = new QImage(":paddle.png");
+    rect_paddle = new QRect(paddle->rect());
+    rect_paddle->moveTo(button2->x()+button2->width()/2-rect_paddle->width()/2, button2->y()+130);
+    qDebug()<<rect_paddle->x()<<rect_ball->y();
 }

@@ -3,5 +3,8 @@
         <file>brickie.png</file>
         <file>paddle.png</file>
         <file>ball.png</file>
+        <file>breakout_background.jpg</file>
+        <file>menu_backgroung.jpg</file>
+        <file>snake_background.jpg</file>
     </qresource>
 </RCC>

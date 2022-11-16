@@ -59,7 +59,7 @@ void Snake::doDrawing()
 {
     QPainter qp(this);//за допомогою цього класу виконуєтсья уся отрисовка
 
-    qp.drawImage(20, 20, QImage("D:/KhPI/Lessons/Course work/Game/snake_background.jpg").scaled(FRAME_WIDTH, FRAME_HEIGHT));//Подгружаем на фон картинку.
+    qp.drawImage(20, 20, QImage(":snake_background.jpg").scaled(FRAME_WIDTH, FRAME_HEIGHT));//Подгружаем на фон картинку.
 
     qp.setRenderHint(QPainter::Antialiasing, true);//сглаживание
     if (m_inGame)
